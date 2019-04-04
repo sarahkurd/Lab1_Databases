@@ -4,6 +4,9 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
 
+        // collection objects
+        CustomerCollection cc = new CustomerCollection();
+
         Boolean showMenu = true;
         while(showMenu) {
 
@@ -33,6 +36,10 @@ public class Main {
                     System.out.println("The ssn you entered is invalid");
                     System.out.println("Enter ssn (9 digits): ");
                     ssn = sc.nextLine();
+                } else if(cc.checkSsn(Integer.parseInt(ssn)) == false) {
+                    System.out.println("The ssn you entered is not unique");
+                    System.out.println("Enter ssn (9 digits): ");
+                    ssn = sc.nextLine();
                 }
                 System.out.println("Enter address: ");
                 String address = sc.nextLine();
@@ -44,7 +51,9 @@ public class Main {
                     phone = sc.nextLine();
                 }
                 Customer c = new Customer(Integer.parseInt(ssn), name, address, Long.parseLong(phone));
-                System.out.print("Customer info: " + c.getId() + " " + c.getName() + " " + c.getSSN() + " " + c.getAddress() + " " + c.getPhone());
+                cc.addCustomer(c);
+                System.out.println("Customer added successfully! ");
+                cc.printCustomers();
                 System.out.println();
             } else if(choice.equals("z")) {
                 showMenu = false;
