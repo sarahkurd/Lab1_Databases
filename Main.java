@@ -2,10 +2,13 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
+
     public static void main(String[] args) {
 
         // collection objects
         CustomerCollection cc = new CustomerCollection();
+        CreditCardCollection creditCardColl = new CreditCardCollection();
+        OwnershipCollection oc = new OwnershipCollection();
 
         Boolean showMenu = true;
         while(showMenu) {
@@ -55,6 +58,38 @@ public class Main {
                 System.out.println("Customer added successfully! ");
                 cc.printCustomers();
                 System.out.println();
+            } else if(choice.equals("u2")) {
+                System.out.println("Enter credit card owner id: ");
+                String cId = sc.nextLine();
+                // while customer does not exist, prompt for valid customer
+                while(!cc.containsId(Integer.parseInt(cId))) {
+                    System.out.println("Customer does not exist. Enter valid customer id: ");
+                    cId = sc.nextLine();
+                }
+                System.out.println("Valid customer. Now Enter Card Info.");
+                System.out.println("Credit Card Type (Visa, MasterCard, AmericanExpress, Discover): ");
+                String type = sc.nextLine();
+                Type cType = Type.valueOf(type);
+                System.out.println("Credit Card Limit: ");
+                String cLimit = sc.nextLine();
+                System.out.println("Current Balance: ");
+                String cBalance = sc.nextLine();
+                CreditCard creditCard = new CreditCard(cType, Integer.parseInt(cLimit), Double.parseDouble(cBalance));
+                System.out.println("Card Created with info:");
+                creditCard.printCardInfo();
+                Ownership own = new Ownership(Integer.parseInt(cId), creditCard.getId());
+
+                // add data to both credit card and ownership structures
+                creditCardColl.addCreditCard(creditCard);
+                System.out.println("Card added to collection");
+                oc.addOwnership(own);
+                System.out.println("Card added to ownerships");
+                System.out.println();
+                System.out.println("Credit Card Collection");
+                creditCardColl.printCreditCards();
+                System.out.println();
+                System.out.println("Ownership Collection");
+                oc.printOwnerships();
             } else if(choice.equals("z")) {
                 showMenu = false;
             }

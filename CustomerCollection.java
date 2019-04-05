@@ -22,6 +22,13 @@ public class CustomerCollection {
         return true;
     }
 
+    public Boolean containsId(int cId) {
+        if(customersId.containsKey(cId)) {
+            return true;
+        }
+        return false;
+    }
+
     // public Customer getCustomerById(int cId) {
     //     return new Customer();
     // }
