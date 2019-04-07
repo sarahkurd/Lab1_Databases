@@ -49,6 +49,10 @@ public class CreditCard {
         this.active = true;
     }
 
+    public void updateBalance(double amount) {
+        this.currentBalance += amount;
+    }
+
     public void printCardInfo() {
         System.out.println("Card Id: " + this.id + " Balance: " + this.currentBalance + " Credit Limit: " + this.creditLimit + " Active?: " + this.active);
     }

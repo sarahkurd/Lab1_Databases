@@ -9,6 +9,8 @@ public class Main {
         CustomerCollection cc = new CustomerCollection();
         CreditCardCollection creditCardColl = new CreditCardCollection();
         OwnershipCollection oc = new OwnershipCollection();
+        VendorCollection vc = new VendorCollection();
+        TransactionCollection tc = new TransactionCollection();
 
         Boolean showMenu = true;
         while(showMenu) {
@@ -90,6 +92,100 @@ public class Main {
                 System.out.println();
                 System.out.println("Ownership Collection");
                 oc.printOwnerships();
+            } else if(choice.equals("u3")) {
+                System.out.println("Issue a credit card duplicate for additional customer: ");
+                System.out.println("Existing credit card id: ");
+                String ccId = sc.nextLine();
+                // while credit card does not exist
+                while(!creditCardColl.containsId(Integer.parseInt(ccId))) {
+                    System.out.println("Credit card does not exist. Enter valid credit card id: ");
+                    ccId = sc.nextLine();
+                }
+                System.out.println("Existing customer id: ");
+                String cId = sc.nextLine();
+                // while customer does not exist, prompt for valid customer
+                while(!cc.containsId(Integer.parseInt(cId))) {
+                    System.out.println("Customer does not exist. Enter valid customer id: ");
+                    cId = sc.nextLine();
+                }
+                // check if ownership already exists
+                if(oc.checkIfExists(Integer.parseInt(cId), Integer.parseInt(ccId))) {
+                    System.out.println("This ownership already exists.");
+                } else {
+                    Ownership own = new Ownership(Integer.parseInt(cId), Integer.parseInt(ccId));
+                    oc.addOwnership(own);
+                    System.out.println("New duplicate credit card ownership added!");
+                    oc.printOwnerships();
+                }
+            } else if(choice.equals("u4")) {
+                System.out.println("Cancel Card. Enter credit card id: ");
+                String ccId = sc.nextLine();
+                // while credit card does not exist
+                while(!creditCardColl.containsId(Integer.parseInt(ccId))) {
+                    System.out.println("Credit card does not exist. Enter valid credit card id: ");
+                    ccId = sc.nextLine();
+                }
+                oc.cancelCardWithId(Integer.parseInt(ccId));
+                creditCardColl.cancelCreditCard(Integer.parseInt(ccId));
+                oc.printOwnerships();
+                creditCardColl.printCreditCards();
+            } else if(choice.equals("u5")) {
+                System.out.println("Activate a credit card.");
+                System.out.println("Enter credit card id to activate: ");
+                String ccId = sc.nextLine();
+                // while credit card does not exist
+                while(!creditCardColl.containsId(Integer.parseInt(ccId))) {
+                    System.out.println("Credit card does not exist. Enter valid credit card id: ");
+                    ccId = sc.nextLine();
+                }
+                creditCardColl.activateCreditCard(Integer.parseInt(ccId));
+                creditCardColl.printCreditCards();
+            } else if(choice.equals("u6")) {
+                System.out.println("Add a new vendor.");
+                System.out.println("Enter vendor name: ");
+                String vName = sc.nextLine();
+                System.out.println("Add vendor address: ");
+                String vAddress = sc.nextLine();
+                Vendor v = new Vendor(vName, vAddress);
+                vc.addVendor(v);
+                vc.printVendors();
+                System.out.println();
+            } else if(choice.equals("u7")) {
+                System.out.println("Create a new transaction.");
+                System.out.println("Enter customer id: ");
+                String cId = sc.nextLine();
+                // while customer does not exist, prompt for valid customer
+                while(!cc.containsId(Integer.parseInt(cId))) {
+                    System.out.println("Customer does not exist. Enter valid customer id: ");
+                    cId = sc.nextLine();
+                }
+                System.out.println("Enter credit card id: ");
+                String ccId = sc.nextLine();
+                // while credit card does not exist
+                while(!creditCardColl.containsId(Integer.parseInt(ccId))) {
+                    System.out.println("Credit card does not exist. Enter valid credit card id: ");
+                    ccId = sc.nextLine();
+                }
+                System.out.println("Enter vendor id: ");
+                String vId = sc.nextLine();
+                while(!vc.containsId(Integer.parseInt(vId))) {
+                    System.out.println("Vendor does not exist. Enter valid vendor id: ");
+                    vId = sc.nextLine();
+                }
+                System.out.println("Enter transaction amount: ");
+                String amount = sc.nextLine();
+                Date today = new Date();
+                Transaction t = new Transaction(Integer.parseInt(cId), Integer.parseInt(ccId), 
+                                                Integer.parseInt(vId), Double.parseDouble(amount), today);
+                tc.addTransaction(t);
+                // update credit card balance here
+                creditCardColl.updateCardBalance(Integer.parseInt(ccId), Double.parseDouble(amount));
+                System.out.println("Transaction Successfull!");
+                tc.printTransactions();
+                System.out.println();
+                System.out.println("Credit card collection: ");
+                creditCardColl.printCreditCards();
+                System.out.println();
             } else if(choice.equals("z")) {
                 showMenu = false;
             }

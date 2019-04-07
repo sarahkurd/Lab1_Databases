@@ -18,10 +18,29 @@ public class CreditCardCollection {
         creditCards.remove(ccId);
     }
 
+    // set given credit card to active 
+    public void activateCreditCard(int ccId) {
+        CreditCard cc = (CreditCard)creditCards.get(ccId);
+        cc.activate();
+    }
+
+    // update card balance after a transaction
+    public void updateCardBalance(int ccId, double amount) {
+        CreditCard cc = (CreditCard)creditCards.get(ccId);
+        cc.updateBalance(amount);
+    }
+
     // print given credit card information
     public void getCardInfo(int ccId) {
         CreditCard c = (CreditCard)creditCards.get(ccId);
         c.printCardInfo();
+    }
+
+    public Boolean containsId(int ccId) {
+        if(creditCards.containsKey(ccId)) {
+            return true;
+        }
+        return false;
     }
 
     public void printCreditCards() {
