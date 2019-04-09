@@ -17,7 +17,7 @@ public class Ownership {
     public int getId() {
         return this.id;
     }
-    
+
     public int getCustomerId() {
         return this.customerId;
     }

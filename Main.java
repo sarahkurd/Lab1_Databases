@@ -11,6 +11,7 @@ public class Main {
         OwnershipCollection oc = new OwnershipCollection();
         VendorCollection vc = new VendorCollection();
         TransactionCollection tc = new TransactionCollection();
+        PaymentCollection pc = new PaymentCollection();
 
         Boolean showMenu = true;
         while(showMenu) {
@@ -126,6 +127,7 @@ public class Main {
                     ccId = sc.nextLine();
                 }
                 oc.cancelCardWithId(Integer.parseInt(ccId));
+                // should we be deleting this card from the credit card collection entirely?
                 creditCardColl.cancelCreditCard(Integer.parseInt(ccId));
                 oc.printOwnerships();
                 creditCardColl.printCreditCards();
@@ -186,6 +188,30 @@ public class Main {
                 System.out.println("Credit card collection: ");
                 creditCardColl.printCreditCards();
                 System.out.println();
+            } else if(choice.equals("u8")) {
+                System.out.println("Make a payment.");
+                System.out.println("Enter credit card id: ");
+                String ccId = sc.nextLine();
+                // while credit card does not exist
+                while(!creditCardColl.containsId(Integer.parseInt(ccId))) {
+                    System.out.println("Credit card does not exist. Enter valid credit card id: ");
+                    ccId = sc.nextLine();
+                }
+                creditCardColl.getCurrentBalance(Integer.parseInt(ccId));
+                System.out.println("Enter payment amount: ");
+                String amount = sc.nextLine();
+                Date today = new Date();
+                try {
+                    creditCardColl.makeCardPayment(Integer.parseInt(ccId), Double.parseDouble(amount));
+                    // make new payment and add to payment collection
+                    Payment p = new Payment(Integer.parseInt(ccId), Double.parseDouble(amount), today);
+                    pc.addPayment(p);
+                } catch(Exception e) {
+                    System.out.println("Caught in main");
+                }
+                pc.printPayments();
+                System.out.println("Credit Card Collection ");
+                creditCardColl.printCreditCards();
             } else if(choice.equals("z")) {
                 showMenu = false;
             }

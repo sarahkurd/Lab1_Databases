@@ -2,13 +2,13 @@ import java.util.Date;
 
 public class Transaction {
 
-    public static int nextId;
-    public int id;
-    public int customerId;
-    public int creditCardId;
-    public int vendorId;
-    public double amount;
-    public Date date;
+    private static int nextId;
+    private int id;
+    private int customerId;
+    private int creditCardId;
+    private int vendorId;
+    private double amount;
+    private Date date;
 
     public Transaction(int cId, int ccId, int vId, double amount, Date date) {
         this.id = nextId++;

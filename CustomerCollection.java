@@ -42,7 +42,6 @@ public class CustomerCollection {
         Iterator iter = set.iterator();
         while(iter.hasNext()) {
             Map.Entry mentry = (Map.Entry)iter.next();
-            System.out.print("key is: "+ mentry.getKey() + " & Value is: ");
             Customer c = (Customer)mentry.getValue();
             c.printCustomer();
         }

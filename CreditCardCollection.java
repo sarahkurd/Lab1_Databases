@@ -30,6 +30,17 @@ public class CreditCardCollection {
         cc.updateBalance(amount);
     }
 
+    // make a payment on the specified card
+    public void makeCardPayment(int ccId, double amount) {
+        CreditCard cc = (CreditCard)creditCards.get(ccId);
+        cc.makePayment(amount);
+    }
+
+    public void getCurrentBalance(int ccId) {
+        CreditCard cc = (CreditCard)creditCards.get(ccId);
+        System.out.println("Current balance on the card is: " + cc.getCurrentBalance());
+    }
+
     // print given credit card information
     public void getCardInfo(int ccId) {
         CreditCard c = (CreditCard)creditCards.get(ccId);

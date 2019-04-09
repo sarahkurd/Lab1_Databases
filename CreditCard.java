@@ -49,8 +49,19 @@ public class CreditCard {
         this.active = true;
     }
 
+    // add to balance after a transaction
     public void updateBalance(double amount) {
         this.currentBalance += amount;
+    }
+
+    // deduct from balance after a payment
+    public void makePayment(double amount) throws Exception{
+        if(amount > this.currentBalance) {
+            System.out.println("You are paying more than your current balance. Your current balance is: " + this.currentBalance);
+            throw new Exception();
+        } else {
+            this.currentBalance -= amount;
+        }
     }
 
     public void printCardInfo() {

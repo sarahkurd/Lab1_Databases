@@ -8,7 +8,7 @@ public class OwnershipCollection {
     HashMap ownerships = new HashMap<Integer, Ownership>();
 
     public void addOwnership(Ownership own) {
-        ownerships.put(own.getCustomerId(), own);
+        ownerships.put(own.getId(), own);
     }
 
     // check if an specified ownership already exists

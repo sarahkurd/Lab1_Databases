@@ -40,14 +40,8 @@ public class Customer {
     }
 
     public void printCustomer() {
-        System.out.println();
-        System.out.println("Customer info with id: " + this.id);
-        System.out.println(this.name);
-        System.out.println(this.ssn);
-        System.out.println(this.address);
-        System.out.println(this.phone);
+        System.out.println("id: " + this.id + " name:" + this.name + " ssn: " + this.ssn
+                            + " address: " + this.address + " phone: " + this.phone);
     }
-
-    // mutators
 
 }
